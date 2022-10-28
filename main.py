@@ -1,63 +1,59 @@
-import tkinter as tk
-from tkinter import ttk
-
-from PIL import ImageTk, Image
+from tkinter import *
 from tkinter.messagebox import showinfo
+from PIL import ImageGrab
+
+import pyautogui
+from PIL import ImageTk, Image
+from tkinter import ttk
 
 from SpeechRecognition import run_alexa
 
 lastClickX = 0
 lastClickY = 0
 
-
-def savelastclickpos(event):
+def SaveLastClickPos(event):
     global lastClickX, lastClickY
     lastClickX = event.x
     lastClickY = event.y
-
-
-def dragging(event):
-    x, y = event.x - lastClickX + root.winfo_x(), event.y - lastClickY + root.winfo_y()
-    root.geometry("+%s+%s" % (x, y))
-
-
-# root window
-root = tk.Tk()
-root.attributes('-topmost', True)                                 #Always on Top
-root.geometry("100x100+1800+900")
-root.title('Image Button Demo')
-root.overrideredirect(True)
-root.bind('<Button-1>', savelastclickpos)
-root.bind('<B1-Motion>', dragging)
-transparent_color = '#abcdef'
-root.wm_attributes('-transparentcolor', transparent_color)        #Transparent color of Window
-#canvas = tk.Canvas(root, bg=transparent_color, highlightthickness=0)
-#canvas.pack()
-
-# download button
-def download_clicked():
     showinfo(
         title='Information',
         message='Download button clicked!'
-
     )
     run_alexa()
 
-
-#quitImage = tk.PhotoImage(Image.open("google.png"))
-#quitButton = canvas.create_image(bg=transparent_color,highlightthickness=0)
-download_icon = tk.PhotoImage(file='google.png')
-download_button = ttk.Button(
-     root,
-     image=download_icon,
-     command=download_clicked
- )
-
-download_button.pack(
-     ipadx=5,
-     ipady=5,
-     expand=True
- )
+def Dragging(event):
+    x, y = event.x - lastClickX + window.winfo_x(), event.y - lastClickY + window.winfo_y()
+    window.geometry("+%s+%s" % (x , y))
 
 
-root.mainloop()
+def my_command():
+   print('pressed')
+
+def screenshot(event):
+   pyautogui.hotkey('win','shift','s')
+   im = ImageGrab.grabclipboard()
+   im.save('somefile.png', 'PNG')
+
+
+window = Tk()
+window.overrideredirect(True)                                       #For Borderless
+window.attributes('-topmost', True)                                 #Always on Top
+window.geometry("64x64+1800+900")                                   #Size of Window
+window.bind('<Button-1>', SaveLastClickPos)
+window.bind('<Button-3>', screenshot)
+window.bind('<B1-Motion>', Dragging)
+transparent_color = '#abcdef'                                       #Transparent color of Window
+window.wm_attributes('-transparentcolor', transparent_color)        #Transparent color of Window
+canvas = Canvas(window, bg=transparent_color,highlightthickness=0)  #No Window Border
+canvas.pack(fill=BOTH, expand=1)
+photo = PhotoImage(file='mic.png')
+img_label= Label(image=photo)
+button= ttk.Button(window, command= my_command)
+button.pack(pady=30)
+
+text= Label(window, text="")
+text.pack(pady=30)
+
+
+canvas.create_image(0, 0, image=photo, anchor=N+W)
+window.mainloop()
