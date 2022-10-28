@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.messagebox import showinfo
 from PIL import ImageGrab
 import pyautogui
-from SpeechRecognitionUtil.SpeechRecognition import run_alexa
+from SpeechRecognition.SpeechRecognition import run_alexa
 
 lastClickX = 0
 lastClickY = 0
@@ -39,7 +39,7 @@ window.bind('<Button-1>', SaveLastClickPos)
 window.bind('<Button-3>', screenshot)
 window.bind('<B1-Motion>', Dragging)
 transparent_color = '#abcdef'                                       #Transparent color of Window
-#indow.wm_attributes('-transparentcolor', transparent_color)        #Transparent color of Window
+window.wm_attributes('-transparentcolor', transparent_color)        #Transparent color of Window
 canvas = Canvas(window, bg=transparent_color,highlightthickness=0)  #No Window Border
 canvas.pack(fill=BOTH, expand=1)
 photo = PhotoImage(file='assets/mic.png')

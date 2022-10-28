@@ -1,10 +1,8 @@
 import os
-
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit
 import datetime
-import googlesearch
 import webbrowser
 import pyautogui
 
