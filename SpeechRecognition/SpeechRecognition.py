@@ -55,8 +55,6 @@ def run_alexa():
     elif 'login' in command:
         os.startfile("C:\\Users\\aknagpur\\Softwares\\AutoIT\\Scripts\\Login.exe")
 
-
-
     else:
         talk('kai bi vicharate ka be')
 
