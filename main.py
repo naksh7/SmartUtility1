@@ -1,12 +1,8 @@
 from tkinter import *
 from tkinter.messagebox import showinfo
 from PIL import ImageGrab
-
 import pyautogui
-from PIL import ImageTk, Image
-from tkinter import ttk
-
-from SpeechRecognition import run_alexa
+from SpeechRecognitionUtil.SpeechRecognition import run_alexa
 
 lastClickX = 0
 lastClickY = 0
@@ -46,7 +42,7 @@ transparent_color = '#abcdef'                                       #Transparent
 #indow.wm_attributes('-transparentcolor', transparent_color)        #Transparent color of Window
 canvas = Canvas(window, bg=transparent_color,highlightthickness=0)  #No Window Border
 canvas.pack(fill=BOTH, expand=1)
-photo = PhotoImage(file='mic.png')
+photo = PhotoImage(file='assets/mic.png')
 img_label= Label(image=photo)
 #button= ttk.Button(window, command= my_command)
 #button.pack(pady=30)
